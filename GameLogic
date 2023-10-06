@@ -1,0 +1,73 @@
+import java.util.ArrayList;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class GameLogic {
+    // Reference to the Robot class
+    private Robot robot;
+
+    // User input commands
+    private ArrayList<String> commandList;
+
+    // Index to keep track of the current command being executed
+    private int currentCommandIndex;
+
+    // Timer for controlling robot animation
+    private Timer animationTimer;
+
+    // Reference to the UserInterface class
+    private UserInterface userInterface;
+
+    // Constructor to initialize game logic
+    public GameLogic(Robot robot, UserInterface userInterface) {
+        this.robot = robot;
+        this.userInterface = userInterface;
+        commandList = new ArrayList<>();
+        currentCommandIndex = 0;
+
+        // Initialize the animation timer (adjust the delay as needed)
+        animationTimer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                executeNextCommand();
+            }
+        });
+    }
+
+    // Method to record user commands
+    public void recordCommand(String command) {
+        commandList.add(command);
+    }
+
+    // Method to start the robot animation
+    public void startRobotAnimation() {
+        currentCommandIndex = 0;
+        animationTimer.start();
+    }
+
+    // Method to execute the next command in the list
+    private void executeNextCommand() {
+        if (currentCommandIndex < commandList.size()) {
+            String command = commandList.get(currentCommandIndex);
+
+            if ("left".equals(command)) {
+                robot.moveLeft();
+            } else if ("right".equals(command)) {
+                robot.moveRight();
+            } else if ("up".equals(command)) {
+                robot.moveUp();
+            } else if ("down".equals(command)) {
+                robot.moveDown();
+            }
+
+            userInterface.updateRobotPosition(robot.getX(), robot.getY());
+
+            currentCommandIndex++;
+
+            if (currentCommandIndex >= commandList.size()) {
+                animationTimer.stop();
+            }
+        }
+    }
+}
