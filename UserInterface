@@ -1,0 +1,84 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class UserInterface extends JFrame {
+    // GUI components
+    private JButton leftButton;
+    private JButton rightButton;
+    private JButton upButton;
+    private JButton downButton;
+    private JButton startButton;
+    private JLabel robotPositionLabel;
+
+    // Reference to the GameLogic class
+    private GameLogic gameLogic;
+
+    // Constructor to initialize the UI
+    public UserInterface(GameLogic gameLogic) {
+        this.gameLogic = gameLogic;
+
+        // Set up the main window
+        setTitle("RoboControl: Interactive Robot Command Platform");
+        setSize(400, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new GridLayout(3, 2));
+
+        // Create and add UI components
+        leftButton = new JButton("Left");
+        rightButton = new JButton("Right");
+        upButton = new JButton("Up");
+        downButton = new JButton("Down");
+        startButton = new JButton("Start");
+        robotPositionLabel = new JLabel("Robot Position: (0, 0)");
+
+        add(leftButton);
+        add(rightButton);
+        add(upButton);
+        add(downButton);
+        add(startButton);
+        add(robotPositionLabel);
+
+        // Add action listeners to the buttons
+        leftButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameLogic.recordCommand("left");
+            }
+        });
+
+        rightButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameLogic.recordCommand("right");
+            }
+        });
+
+        upButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameLogic.recordCommand("up");
+            }
+        });
+
+        downButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameLogic.recordCommand("down");
+            }
+        });
+
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameLogic.startRobotAnimation();
+            }
+        });
+    }
+
+    // Method to update the robot's position display on the UI
+    public void updateRobotPosition(int x, int y) {
+        robotPositionLabel.setText("Robot Position: (" + x + ", " + y + ")");
+    }
+}
