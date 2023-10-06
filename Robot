@@ -1,0 +1,46 @@
+public class Robot {
+    // Attributes to store the robot's position
+    private int x; // X-coordinate
+    private int y; // Y-coordinate
+
+    // Constructor to initialize the robot's position
+    public Robot(int initialX, int initialY) {
+        x = initialX;
+        y = initialY;
+    }
+
+    // Method to move the robot one step to the left
+    public void moveLeft() {
+        x--;
+    }
+
+    // Method to move the robot one step to the right
+    public void moveRight() {
+        x++;
+    }
+
+    // Method to move the robot one step up
+    public void moveUp() {
+        y--;
+    }
+
+    // Method to move the robot one step down
+    public void moveDown() {
+        y++;
+    }
+
+    // Method to reset the robot's position to the starting point
+    public void resetPosition(int initialX, int initialY) {
+        x = initialX;
+        y = initialY;
+    }
+
+    // Getter methods to retrieve the robot's X and Y coordinates
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+}
